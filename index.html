@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鹿彼_Ruby 控制了你的设备！</title>
+	<link rel="shortcut icon" href="./res/favicon.ico">
+<style>
+	
+  body {
+height: 100vh;
+    display: flex;
+overflow-y:hidden;
+    justify-content: center;
+    align-items: center;
+    background-color: #ddd;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+html{
+overflow-y:hidden;
+}
+  .desktop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+overflow-y:hidden;
+
+    border-radius: 4px;
+    overflow: hidden;
+    background-image:url("./res/A59A2546B288AD1EAD6A1BD655B09718.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+     display: grid;
+  grid-wrap: wrap;
+  justify-content: start;
+  align-content:start;
+  padding-bottom: 90px;
+  flex-direction: column;
+  padding-top:50px; /* 修改这里 */
+  }
+  .icon {
+
+    width: 80px;
+    height: 102px;
+    background-color: #fdd2fc;
+    margin: 10px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  .icons_set{
+    margin-top:25px;
+    height:100%;
+   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content:flex-start;
+  flex-direction: column;
+  }
+  .icon img {
+    width: 48px;
+    height: 48px;
+    margin: 12px;
+    user-select: none;
+  }
+  .icon:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  .icon span{
+    margin-left:7px;
+    user-select: none;
+    width:100px;
+  }
+  .watermark h2{
+ 
+    font-size: 89px;
+  }
+  .draggable{
+    user-select: none;
+  }
+  .watermark{
+    width:90%;
+    user-select: none;
+    height:30%;
+    display:inline-flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: rgba(228, 123, 53, 0.2);
+     margin-left:100px;
+     margin-botton:100px;
+	  overflow:hidden;
+	  white-space:nowrap;
+  }
+.taskbar {
+  width: 100%;
+  height: 48px; /* 修改这里 */
+margin-bottom:75px;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  vertical-align: middle;
+z-index:15;
+}
+
+#currentTime {
+  position: absolute;
+  right: 10px;
+  top: 15px; /* 修改这里 */
+  font-weight: 400;
+  user-select: none;
+  color: azure;
+}
+ /*新增*/
+ .dialog {
+    width: 300px;
+    position: absolute;
+    border: 2px solid #000;
+    background-color: #C0C0C0; /* 灰色背景 */
+    font-family: 'MS Sans Serif', Geneva, sans-serif; /* 使用MS Sans Serif字体 */
+    color: #000; /* 黑色文本 */
+    text-align: left; /* 左对齐文本 */
+  margin-top:150px;
+}
+
+.draggable {
+    border: 2px solid #000;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right:20px;
+    background-color: #C0C0C0; /* 灰色背景 */
+    font-family: 'MS Sans Serif', Geneva, sans-serif; /* 使用MS Sans Serif字体 */
+    color: #000; /* 黑色文本 */
+}
+
+#draggable:not(.draggable){
+    cursor: move;
+}
+.title-bar {
+    display: flex;
+    align-items: center;
+    background-color: #000080; /* 深蓝色背景 */
+    color: #fff; /* 白色文本 */
+    padding: 2px 6px;
+    font-family: 'MS Sans Serif', Geneva, sans-serif; /* 使用MS Sans Serif字体 */
+    font-size: 12px; /* 字体大小 */
+    user-select: none;
+}
+
+.title-bar button {
+    margin-left: auto;
+    background-color: #C0C0C0; /* 灰色背景 */
+    border: 1px solid #000; /* 黑色边框 */
+    color: #000; /* 黑色文本 */
+    padding: 2px;
+    font-size: 10px; /* 字体大小 */
+}
+.start{
+  height:48px;
+  width:48px;
+  position: absolute;
+  left:0;
+}
+
+
+.start-menu-hidden {
+  display: none;
+}
+
+.start-menu-visible {
+  display: block;
+  position: fixed;
+  bottom: 55px;
+  width: 375px;
+  background-color: #C0C0C0;
+  border: 2px solid #000;
+}
+#start-menu ul li{
+list-style: none;
+user-select: none;
+margin-bottom: 25px;
+}
+#start-menu{
+z-index:15;
+}
+.desktop a{
+  color:#000;
+  text-decoration: none;
+}
+.drawer{
+filter: brightness(200%);
+}
+ #mydiv {
+            z-index: 9;
+            background-color: #f1f1f1;
+            border: 1px solid #d3d3d3;
+            text-align: center;
+	    margin-top:100px;
+            margin-left:50px;
+            position: absolute;
+        }
+
+        #mydivheader {
+            padding: 10px;
+            cursor: move;
+            z-index: 10;
+            background-color: #fdd2fc;
+            color: #fff;
+        }
+
+        #myimage {
+            max-width: 50%;
+        }
+   /*新增*/
+</style>
+</head>
+<body>
+<div class="desktop">
+  <div class="icons_set">
+ <a href="https://space.bilibili.com/3546610466294509/">  
+  <div class="icon" draggable="false">
+    <img src="res/default-user-home.svg" alt="Icon"><span>主文件夹</span>
+  </div></a>
+  <a href="https://live.bilibili.com/31823684">  <div class="icon" draggable="false">
+    <img src="res/default-user-desktop.svg" alt="Icon"><span>桌面文件</span>
+  </div></a>
+  <a href="https://live.bilibili.com/31823684"> <div class="icon" draggable="false">
+    <img src="res/default-folder-download.svg" alt="Icon"><span>我的下载</span>
+  </div></a>
+    <a href="https://live.bilibili.com/31823684"><div class="icon" draggable="false">
+    <img src="res/default-folder-recent.svg" alt="Icon"><span>最近使用</span>
+  </div></a>
+   <a href="https://live.bilibili.com/31823684"> <div class="icon" draggable="false">
+    <img src="res/default-network.svg" alt="Icon"><span>网上邻居</span>
+  </div></a>
+   <a href="https://live.bilibili.com/31823684"> <div class="icon" draggable="false">
+    <img src="res/default-folder.svg" alt="Icon"><span>新文件夹</span>
+  </div></a></div>
+<div id="mydiv">
+  <div id="mydivheader" draggable="false">鹿彼_Ruby 天下第一！(连续拖拽几次看看)</div>
+    <div><a href="https://live.bilibili.com/31823684"> <img src="res/剪影.png" alt="鹿鹿Q版剪影" id="myimage"></a> 
+ </div>
+</div>
+  <div class="watermark" draggable="false">
+    <h2>鹿彼_Ruby</h2>
+    <h3>元气善良美好活泼开朗天才少女</h3>
+  </div>
+
+  <div class="dialog" id="draggable">
+    <div class="title-bar"><span draggable="false">Hello, World</span><button draggable="false"  id="hideButton" type="button">X</button></div>
+    <p class="draggable" draggable="false">  <a href="https://live.bilibili.com/31823684">关注 鹿彼_Ruby 喵.</a></p>
+    <p  class="draggable" draggable="false" >  <a href="https://live.bilibili.com/31823684">关注 鹿彼_Ruby 谢谢喵！</a></p>
+  </div>
+  <div id="start-menu" class="start-menu-hidden" draggable="false">
+    <ul>
+      <li draggable="false"><a href="chara.html">Ruby.sh</a></li>
+       <li draggable="false">#! /usr/bin/ruby -w</li>
+       <li draggable="false"># -*- coding: UTF-8 -*-</li>
+      <li draggable="false">puts "关注 鹿彼_Ruby 喵~";</li>
+      <li draggable="false">puts "关注 鹿彼_Ruby 谢谢喵~";</li>
+ 
+    </ul>
+  </div>
+  <div class="taskbar">
+    <div class="start" id="start-button"><img alt="" class="drawer" src="res/view-grid-symbolic.svg"></div>
+    <div id="currentTime"></div>
+  </div>
+  <script>
+    const draggable = document.getElementById('draggable');
+    let active = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+   
+    draggable.addEventListener('mousedown', dragStart, false);
+    document.addEventListener('mouseup', dragEnd, false);
+    document.addEventListener('mousemove', drag, false);
+  draggable.addEventListener('touchstart', dragStart, false);
+document.addEventListener('touchend', dragEnd, false);
+document.addEventListener('touchmove', drag, false);
+
+function dragStart(e) {
+  if (e.type === 'touchstart') {
+    initialX = e.touches[0].clientX - xOffset;
+    initialY = e.touches[0].clientY - yOffset;
+  } else {
+    initialX = e.clientX - xOffset;
+    initialY = e.clientY - yOffset;
+  }
+
+  if (e.target === draggable) {
+    active = true;
+  }
+}
+    function dragEnd(e) {
+      initialX = currentX;
+      initialY = currentY;
+   
+      active = false;
+    }
+   
+  function drag(e) {
+  if (active) {
+    e.preventDefault();
+
+    if (e.type === 'touchmove') {
+      currentX = e.touches[0].clientX - initialX;
+      currentY = e.touches[0].clientY - initialY;
+    } else {
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+    }
+
+    xOffset = currentX;
+    yOffset = currentY;
+
+    setTranslate(currentX, currentY, draggable);
+  }
+}
+
+function setTranslate(xPos, yPos, el) {
+  el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+}
+   
+    function setTranslate(xPos, yPos, el) {
+      el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+    }
+    function displayCurrentTime() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+  
+        // 添加0以确保两位数显示
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+  
+        var timeString = hours + ":" + minutes + ":" + seconds;
+  
+        document.getElementById("currentTime").innerHTML = timeString;
+    }
+  
+    // 每秒钟更新一次时间
+    setInterval(displayCurrentTime, 1000);
+
+
+    //新
+
+    document.getElementById('start-button').addEventListener('click', function() {
+  var startMenu = document.getElementById('start-menu');
+  if (startMenu.className === 'start-menu-hidden') {
+    startMenu.className = 'start-menu-visible';
+  } else {
+    startMenu.className = 'start-menu-hidden';
+  }
+});
+//新
+// JavaScript
+  dragElement(document.getElementById("mydiv"));
+
+function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    var initialX = 0, initialY = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        document.getElementById(elmnt.id + "header").ontouchstart = dragMouseDown; // 添加触摸事件
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+        elmnt.ontouchstart = dragMouseDown; // 添加触摸事件
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        if (e.type === 'touchstart') {
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+        } else {
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+        }
+        initialX = elmnt.offsetLeft;
+        initialY = elmnt.offsetTop;
+        document.onmouseup = closeDragElement;
+        document.ontouchend = closeDragElement; // 添加触摸事件
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+        document.ontouchmove = elementDrag; // 添加触摸事件
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        if (e.type === 'touchmove') {
+            pos1 = pos3 - e.touches[0].clientX;
+            pos2 = pos4 - e.touches[0].clientY;
+            pos3 = e.touches[0].clientX;
+            pos4 = e.touches[0].clientY;
+        } else {
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+        }
+        // set the element's new position:
+        var newTop = initialY - pos2;
+        var newLeft = initialX - pos1;
+        // Ensure the element stays within the window bounds:
+        if (newTop >= 0 && newTop <= window.innerHeight - elmnt.offsetHeight) {
+            elmnt.style.top = newTop + "px";
+        }
+        if (newLeft >= 0 && newLeft <= window.innerWidth - elmnt.offsetWidth) {
+            elmnt.style.left = newLeft + "px";
+        }
+    }
+
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+        document.ontouchend = null; // 添加触摸事件
+        document.ontouchmove = null; // 添加触摸事件
+    }
+}
+	  // New
+	    document.getElementById("hideButton").onclick = function() {
+        document.getElementById("draggable").style.display = "none";
+    }
+//New_AutoJudge
+function setPageHeight() {
+  // 获取窗口的高度
+  var windowHeight = window.innerHeight;
+  
+  // 设置body的高度
+  document.body.style.height = windowHeight + 'px';
+}
+ 
+// 当窗口大小改变时，重新设置页面高度
+window.onresize = setPageHeight;
+ 
+// 页面初始化时，设置页面高度
+setPageHeight();
+  </script>
+
+
+</div>
+
+</body>
+</html>
