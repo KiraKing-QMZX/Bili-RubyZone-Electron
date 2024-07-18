@@ -5,6 +5,7 @@
 - 使用 Electron 并使用 Electron-forge 打包
 - 已通过 VirScan 病毒查杀测试
 - 在线网页： KiraKing-QMZX.github.io/Ruby
+- 在右侧 Release 板块即可下载程序
 # 鸣谢
 @BenjaminPan61618
 @马说好伯乐@BiliBili
